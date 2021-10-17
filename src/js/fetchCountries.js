@@ -47,7 +47,11 @@
 // }, DELAY);
 // }
 // makeOrder(`пирожок`);
-fetch ('https://restcountries.com/v2/name/uk')
-.then(r =>r.json())
-.then(console.log);
+fetch ('https://restcountries.com/v2/name/s')
+.then(r =>{
+    console.log('result', r);
+    return r.json();
+}
+    )
+.then((data) => {console.log ('data', data)});
 
