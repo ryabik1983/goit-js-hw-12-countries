@@ -1,7 +1,7 @@
-const BASE_URL = 'https://restcountries.com/v2/name/';
-export default function fetchCountries(searchQuery){
-    return fetch(`${BASE_URL}${searchQuery}`).then(response => response.json());
-};
+// const BASE_URL = 'https://restcountries.com/v2/name/';
+// export default function fetchCountries(searchQuery){
+//     return fetch(`${BASE_URL}${searchQuery}`).then(response => response.json());
+// };
 // console.log('Hello!');
 // const promise = new Promise ((resolve, reject) => {
 // const canFullFill = Math.random() > 0.5;
@@ -40,9 +40,14 @@ export default function fetchCountries(searchQuery){
 // .finally(() => console.log('Always'));
 // console.log(promise);
 
-const makeOrder = dish => {
-const DELAY = 1000;
-setTimeout(() => {}, DELAY);
-}
-const x = makeOrder ('пирожок');
-console.log(x);
+// function makeOrder (dish) {
+// const DELAY = 1000;
+// setInterval(() => {
+//     console.log(dish);
+// }, DELAY);
+// }
+// makeOrder(`пирожок`);
+fetch ('https://restcountries.com/v2/name/uk')
+.then(r =>r.json())
+.then(console.log);
+

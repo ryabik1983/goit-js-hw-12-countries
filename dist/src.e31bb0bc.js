@@ -118,21 +118,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/fetchCountries.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = fetchCountries;
-var BASE_URL = 'https://restcountries.com/v2/name/';
-
-function fetchCountries(searchQuery) {
-  return fetch("".concat(BASE_URL).concat(searchQuery)).then(function (response) {
-    return response.json();
-  });
-}
-
-; // console.log('Hello!');
+// const BASE_URL = 'https://restcountries.com/v2/name/';
+// export default function fetchCountries(searchQuery){
+//     return fetch(`${BASE_URL}${searchQuery}`).then(response => response.json());
+// };
+// console.log('Hello!');
 // const promise = new Promise ((resolve, reject) => {
 // const canFullFill = Math.random() > 0.5;
 // setTimeout(() => {
@@ -166,14 +156,16 @@ function fetchCountries(searchQuery) {
 // .catch(error => console.log(error))
 // .finally(() => console.log('Always'));
 // console.log(promise);
-
-var makeOrder = function makeOrder(dish) {
-  var DELAY = 1000;
-  setTimeout(function () {}, DELAY);
-};
-
-var x = makeOrder('пирожок');
-console.log(x);
+// function makeOrder (dish) {
+// const DELAY = 1000;
+// setInterval(() => {
+//     console.log(dish);
+// }, DELAY);
+// }
+// makeOrder(`пирожок`);
+fetch('https://restcountries.com/v2/name/uk').then(function (r) {
+  return r.json();
+}).then(console.log);
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -206,7 +198,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65173" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61277" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
