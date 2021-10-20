@@ -2964,7 +2964,7 @@ function onNoCountry() {
   (0, _core.info)({
     title: 'Внимание! Ошибка!',
     text: 'Введите пожалуйста корректный запрос ...(Ukraine)',
-    delay: 2000,
+    delay: 5000,
     closerHover: true,
     mouseReset: true,
     shadow: true
@@ -2975,7 +2975,7 @@ function onOutputInfo() {
   (0, _core.error)({
     title: 'Внимание! Найдено слишком много совпадений',
     text: 'Введите пожалуйста более специфичный запрос.',
-    delay: 2000,
+    delay: 5000,
     closerHover: true,
     mouseReset: true,
     shadow: true
@@ -3020,49 +3020,77 @@ const {
   clearBtn,
   countriesList
 } = _refs.default;
-input.addEventListener('input', (0, _lodash.default)(e => {
-  console.log(e.target.value);
-  let inputValue = e.target.value;
-  let searchQuery = inputValue;
-  (0, _fetchCountries.default)(searchQuery).then(data => {
-    console.log('data', data);
-    onAppendCountriesList(data);
-  });
-  ;
-}, 3000));
-clearBtn.addEventListener('click', onClearCountries);
+input.addEventListener('input', (0, _lodash.default)(onSearch, 3000));
+clearBtn.addEventListener('click', onClearCountries());
 
 function onSearch() {
-  (0, _fetchCountries.default)(input.value).then(countries => onCountrySearch(countries));
+  if (!input.value) {
+    onClearCountries();
+    return;
+  }
+
+  (0, _fetchCountries.default)(input.value).then(countries => {
+    onCountrySearch(countries);
+    console.log('data', countries);
+  });
 }
 
 function onCountrySearch(countries) {
   if (countries.length === 1) {
     onClearCountries();
+    onAppendCountriesCard(countries);
   } else if (countries.length >= 2 && countries.length <= 10) {
     onClearCountries();
+    onAppendListCountries(countries);
   } else if (countries.length > 10) {
-    return onOutputInfo();
+    onClearCountries();
+    return (0, _notify.onOutputInfo)();
   } else if (countries.status === 404) {
-    return (0, _notify.onError)();
+    onClearCountries();
+    return (0, _notify.onNoCountry)();
   } else {
+    onClearCountries();
     return (0, _notify.onError)();
   }
 }
 
+;
+
 function onClearCountries() {
   input.value = '';
-  countriesList.innerHTML = '';
+  countriesList.innerHTML = "";
 }
 
-function onAppendCountriesList(countries) {
+function onAppendListCountries(countries) {
+  countriesList.insertAdjacentHTML('beforeend', (0, _countriesListMarkup.default)(countries));
+  document.querySelector('.countries-list').addEventListener('click', onTargetValue);
+}
+
+function onAppendCountriesCard(countries) {
   countriesList.insertAdjacentHTML('beforeend', (0, _contryCardMarkup.default)(countries));
 }
-},{"lodash.debounce":"../node_modules/lodash.debounce/index.js","./fetchCountries":"js/fetchCountries.js","../templates/contry-card-markup.hbs":"templates/contry-card-markup.hbs","../templates/countries-list-markup.hbs":"templates/countries-list-markup.hbs","./notify":"js/notify.js","./refs":"js/refs.js"}],"index.js":[function(require,module,exports) {
+
+function onTargetValue(e) {
+  if (e.target.nodeName !== "LI") {
+    return;
+  }
+
+  (0, _fetchCountries.default)(e.target.textContent).then(onCountrySearch);
+}
+
+;
+},{"lodash.debounce":"../node_modules/lodash.debounce/index.js","./fetchCountries":"js/fetchCountries.js","../templates/contry-card-markup.hbs":"templates/contry-card-markup.hbs","../templates/countries-list-markup.hbs":"templates/countries-list-markup.hbs","./notify":"js/notify.js","./refs":"js/refs.js"}],"sass/main.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("./js/main.js");
-},{"./js/main.js":"js/main.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./sass/main.scss");
+},{"./js/main.js":"js/main.js","./sass/main.scss":"sass/main.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -3090,7 +3118,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65033" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59164" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
