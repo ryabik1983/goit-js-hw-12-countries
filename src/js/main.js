@@ -12,7 +12,7 @@ import countriesListMarkupTemplates from '../templates/countries-list-markup.hbs
 import countryCardMarkupTemplates from '../templates/contry-card-markup.hbs';
 
 input.addEventListener(
-    'input', debounce(onSearch, 3000));
+    'input', debounce(onSearch, 500));
 clearBtn.addEventListener('click', onClearCountries())
 
 function onSearch () {
