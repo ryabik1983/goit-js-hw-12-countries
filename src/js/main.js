@@ -17,7 +17,7 @@ clearBtn.addEventListener('click', onClearCountries())
 
 function onSearch () {
   if (!input.value){
-    onClearCountries();
+    onError();
     return;
   }
   fetchCountries (input.value)
@@ -29,24 +29,19 @@ function onSearch () {
 
 function onCountrySearch (countries) {
   if(countries.length === 1) {
-    onClearCountries();
     onAppendCountriesCard (countries)
       }
   else if (countries.length >= 2 && countries.length <= 10){
-    onClearCountries();
     onAppendListCountries(countries);
   }
   else if (countries.length > 10) {
-    onClearCountries();
     return onOutputInfo(); 
   }
   else if (countries.status === 404){
-    onClearCountries();
     return onNoCountry();
     
   }
   else {
-    onClearCountries();
     return onError();
   }
 
