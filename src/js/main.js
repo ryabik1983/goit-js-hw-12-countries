@@ -11,14 +11,13 @@ const {input, clearBtn, countriesList} = refs;
 import countriesListMarkupTemplates from '../templates/countries-list-markup.hbs';
 import countryCardMarkupTemplates from '../templates/contry-card-markup.hbs';
 
-input.addEventListener(
-    'input', debounce(onSearch, 500));
-clearBtn.addEventListener('click', onClearCountries())
+input.addEventListener('input', debounce(onSearch, 500));
+
+clearBtn.addEventListener('click', onClearCountries)
 
 function onSearch () {
-  if (!input.value){
-    onError();
-    return;
+  if (input.value.trim() === ""){
+    return onError();
   }
   fetchCountries (input.value)
   .then(countries => {
@@ -50,6 +49,7 @@ function onCountrySearch (countries) {
 function onClearCountries () {
 input.value = '';
 countriesList.innerHTML = "";
+console.log('нажали кнопку очистить!');
 }
  
 function onAppendListCountries(countries) {
