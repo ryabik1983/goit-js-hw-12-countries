@@ -49,7 +49,6 @@ function onCountrySearch (countries) {
 function onClearCountries () {
 input.value = '';
 countriesList.innerHTML = "";
-console.log('нажали кнопку очистить!');
 }
  
 function onAppendListCountries(countries) {
